@@ -5,8 +5,9 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const port = "http://localhost:5000"
+  const navigate = useNavigate()
 
-  const navigate = useNavigate();
   const [reset, setReset] = useState(false);
   const [isActive, setActive] = useState("false");
   const open = () => {
@@ -20,9 +21,21 @@ const Signup = () => {
     setSwapPanel(false);
   };
 
+  // for sign up
+  const [getdata, setGetData] = useState({ email: "", password: "" })
+  const setGet = (e) => {
+    const { name, value } = e.target
 
-  const port = "http://localhost:5000"
+    setGetData(() => {
+      return {
+        ...getdata,
+        [name]: value
+      }
+    })
+  }
+
   const [data, setData] = useState({ name: "", email: "", password: "" })
+  const [resetData, setResetData] = useState({ email: "" })
   const setval = (e) => {
     const { name, value } = e.target
 
@@ -32,13 +45,17 @@ const Signup = () => {
         [name]: value
       }
     })
+    setResetData(() => {
+      return {
+        ...getdata,
+        [name]: value
+      }
+    })
   }
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-
     const { name, email, password } = data
-
     if (name === '') {
       alert('Your Name is Required')
     } else if (email === "") {
@@ -63,25 +80,36 @@ const Signup = () => {
     }
   }
 
-  // ================= for sign up ========================
-
-  const [getdata, setGetData] = useState({ email: "", password: "" })
-  const setGet = (e) => {
-    const { name, value } = e.target
-
-    setGetData(() => {
-      return {
-        ...getdata,
-        [name]: value
-      }
+  const ResetPassword = async (e) => {
+    e.preventDefault();
+    const { email } = resetData;
+    const data = await fetch(`${port}/generateOTP`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email })
     })
+    const res = await data.json()
+    localStorage.setItem("otp", res.code);
+
+    let text = `Your Reset Password OTP ${res.code}`;
+    let subject = "For Reset Password"
+
+    const sendotptomail = await fetch(`${port}/sendMail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, text, subject })
+    })
+    const response = await sendotptomail.json()
+    navigate('/resetpassword', { state: { data: resetData.email } })
   }
 
   const handlelogin = async (e) => {
     e.preventDefault();
-
     const { email, password } = getdata
-
     if (email === "") {
       alert('Your Email is Required')
     } else if (password === '') {
@@ -129,45 +157,36 @@ const Signup = () => {
 
           <div class="form-container sign-up-container">
             <form>
-              {
-                !reset ?
-                  <>
-                    <h3>Create Account</h3>
-                    <span>Use your email for registration</span>
-                    <input type="text" name='name' value={data.name} placeholder="Name" onChange={setval} />
-                  </>
-                  :
-                  ""
+              {!reset ?
+                <>
+                  <h3>Create Account</h3>
+                  <span>Use your email for registration</span>
+                  <input type="text" name='name' value={data.name} placeholder="Name" onChange={setval} />
+                </>
+                :
+                ""
               }
 
-              {
-                reset ? <>
-                  <h3 className='my-4' >Reset Password</h3>
-                </>
-                  : ""
+              {reset ? <>
+                <h3 className='my-4' >Reset Password</h3>
+                <input type="email" placeholder="Email" name='email' value={resetData.email} onChange={setval} />
+                <button className='my-4' onClick={ResetPassword} >Send OTP</button>
+              </>
+                : ""
               }
 
-              <input type="email" placeholder="Email" name='email' value={data.email} onChange={setval} />
-              {
-                reset ? <>
-                  <button className='my-4' onClick={handlesubmit} >Send OTP</button>
-                </>
-                  : ""
-              }
+              {!reset ? <>
+                <input type="email" placeholder="Email" name='email' value={data.email} onChange={setval} />
+                <input type="password" placeholder="Password" name='password' value={data.password} onChange={setval} />
+                <button onClick={handlesubmit} >Sign Up</button>
 
-
-              {
-                !reset ? <>
-                  <input type="password" placeholder="Password" name='password' value={data.password} onChange={setval} />
-                  <button onClick={handlesubmit} >Sign Up</button>
-
-                  <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", alignItems: "center" }} >
-                    <span style={{ fontSize: "1rem" }} >Reset Your Password </span>
-                    <a onClick={() => { setReset(true) }} style={{ color: 'blue', cursor: "pointer" }}  >click here</a>
-                  </div>
-                </>
-                  :
-                  ""
+                <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", alignItems: "center" }} >
+                  <span style={{ fontSize: "1rem" }} >Reset Your Password </span>
+                  <a onClick={() => { setReset(true) }} style={{ color: 'blue', cursor: "pointer" }}  >click here</a>
+                </div>
+              </>
+                :
+                ""
               }
 
             </form>
