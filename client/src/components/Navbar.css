@@ -154,7 +154,7 @@ body {
   font-size: var(--fs-6);
   text-transform: uppercase;
   font-weight: var(--fw-600);
-  padding: 10px 40px;
+  padding: 5px 30px;
   border: 1px solid;
   border-radius: 6px;
   background: var(--bittersweet);

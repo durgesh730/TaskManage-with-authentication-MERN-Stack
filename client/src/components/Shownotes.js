@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../components/main.css'
-import { BsLinkedin } from 'react-icons/bs'
-import { FiInstagram } from 'react-icons/fi'
-import { GrYoutube } from 'react-icons/gr'
-import { FaTwitter, FaEdit } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
 import img from '../image/Notes-amico.png'
 import Footer from './Footer'
@@ -59,7 +56,7 @@ const Shownotes = () => {
         })
     }
 
-    // ================ handle Store edited Notes in data base ================    
+    //  handle Store edited Notes in data base    
 
     const handleSumNote = async () => {
         const Note = await fetch(`${port}/editnotes/${id}`, {
@@ -72,12 +69,12 @@ const Shownotes = () => {
         const data = await Note.json();
         if (data.status === 201) {
             window.location.reload()
-        }else{
+        } else {
             alert('some error occured ')
         }
     }
 
-    // ================== Show All Notes according Users  =======================
+    // Show All Notes according Users 
 
     const handleshow = async (e) => {
         const data = await fetch(`${port}/notes`, {
@@ -88,13 +85,12 @@ const Shownotes = () => {
             },
         })
         const json = await data.json()
-        // console.log(json)
         if (json !== null) {
             setNote(json)
         }
     }
 
-    // ===================== Search Notes =========================================
+    // Search Notes 
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -109,11 +105,9 @@ const Shownotes = () => {
         })
         const json = await data.json()
         setNote(json);
-        // console.log(json);
-        // window.location.reload()
     }
 
-    //  ============================ Delete Notes =====================================   
+    //  Delete Notes   
 
     const handleDelete = async (not) => {
         const data = await fetch(`${port}/allnotes/${not._id}`, {
@@ -149,12 +143,12 @@ const Shownotes = () => {
                         <button onClick={handleSearch} ><i class="fa fa-search"></i></button>
                     </form>
 
-                    <div style={{ paddingTop: "3rem" }} >
-                        <div className='Yanotes' >{
+                    <div style={{ paddingTop: "3rem" }}>
+                        <div className='Yanotes'>{
                             note?.map((not, i) => {
                                 return (<div className='card-body  text-center' key={i} >
                                     <span> {not.title}</span> <br />
-                                    <span> {not.description}</span>
+                                    <span  > {not.description}</span>
                                     <div className='my-2 delete d-flex justify-content-between '>
                                         <span onClick={() => { handleDelete(not) }} ><AiFillDelete /></span>
                                         <span onClick={() => { handleOpen(not) }} ><FaEdit /></span>
@@ -167,7 +161,7 @@ const Shownotes = () => {
                 </div>
             </div>
 
-            {/* ==================== edit notes ============== */}
+            {/* edit notes*/}
 
             <div id="myModal" class="modal">
                 <div class="modal-content mx-auto ">

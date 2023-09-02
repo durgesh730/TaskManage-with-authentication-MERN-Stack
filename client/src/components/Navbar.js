@@ -4,6 +4,7 @@ import { FaAngleDoubleRight } from 'react-icons/fa';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { BsFillPersonFill } from 'react-icons/bs';
 import pic from "../image/hero-banner.png"
+import { Link } from 'react-router-dom';
 
 
 const Navbar = () => {
@@ -38,11 +39,9 @@ const Navbar = () => {
             <header>
                 <div class="container">
                     <a href="#" class="logo">
-                        <span><FaAngleDoubleRight/>STICKY </span>
+                        <span><FaAngleDoubleRight/>Task Manager </span>
                     </a>
-                
                     <div class="navbar-wrapper">
-
                         <button class="navbar-menu-btn" onClick={open}>
                             <GiHamburgerMenu />
                         </button>
@@ -53,12 +52,12 @@ const Navbar = () => {
                                     <a href="" class="nav-link" style={{fontSize:"2.5rem", color:" hsl(2, 100%, 69%)" }} ><BsFillPersonFill/></a>
                                     {user?.map((item)=>{
                                         return(                                           
-                                            <a href="#home" class="nav-link" style={{fontSize:"1rem", paddingTop:"1rem" }} > Hii {item.name} </a>
+                                            <a href="#home" class="nav-link" style={{fontSize:"1rem", paddingTop:"1rem" }} > Hi, {item.fname} </a>
                                         )
                                     })}
                                 </li>
                             </ul>
-                            <button class="btn">Get in touch</button>
+                            <Link class="btn" to={'/'}  >Logout</Link>
                         </nav>
                     </div>
                 </div>
@@ -69,11 +68,8 @@ const Navbar = () => {
 
                     <section class="hero" id="home">
                         <div class="container">
-
                             <div class="hero-content">
-
                                 <h1 class="h1 hero-title">Write your first draft with your heart</h1>
-
                                 <p class="hero-text">
                                     Capture and retrieve your lists across devices to help you stay organized at work, home, and on the go.
                                 </p>

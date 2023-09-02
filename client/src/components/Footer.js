@@ -6,10 +6,9 @@ import { FaTwitter, FaEdit } from 'react-icons/fa';
 
 const Footer = () => {
     return (
-        <div>
-
+        <>
             <div className='footer'>
-                <div className='text-center my-4'><span>Sticky Note</span></div>
+                <div className='text-center my-4'><span>Task Manager</span></div>
                 <div className='footer_socials_MainPage'>
                     <a href="https://www.linkedin.com/in/durgesh-chaudhary-535a76211/" target="_blank"><BsLinkedin /></a>
                     <a href="https://www.instagram.com/_durgesh.chaudhary/" target="_blank"><FiInstagram /></a>
@@ -22,7 +21,7 @@ const Footer = () => {
                 </div>
             </div>
 
-        </div>
+        </>
     )
 }
 

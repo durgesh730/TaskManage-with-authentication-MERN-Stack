@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const Signup = () => {
 
   const navigate = useNavigate();
+  const [reset, setReset] = useState(false);
   const [isActive, setActive] = useState("false");
   const open = () => {
     setActive(!isActive);
@@ -54,7 +55,7 @@ const Signup = () => {
       })
       const res = await data.json()
       if (res.status === 201) {
-        // navigate('/mainpage')
+        setSwapPanel(false);
         alert('You are Registered successfully')
       } else {
         alert("Plz Enter correct Details")
@@ -117,15 +118,6 @@ const Signup = () => {
               <GiHamburgerMenu />
             </button>
             <nav className={isActive ? "navbar" : " navbar  active"}>
-              {/* <ul class="navbar-list">
-                <li class="nav-item">
-                  <a href="#about" class="nav-link">Login</a>
-                </li>
-
-                <li class="nav-item">
-                  <Link to={'/signup'} class="nav-link">Signup</Link>
-                </li>
-              </ul> */}
               <button class="btn">Get in touch</button>
             </nav>
           </div>
@@ -137,24 +129,53 @@ const Signup = () => {
 
           <div class="form-container sign-up-container">
             <form>
-              <h3>Create Account</h3>
-              <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-              </div>
+              {
+                !reset ?
+                  <>
+                    <h3>Create Account</h3>
+                    <span>Use your email for registration</span>
+                    <input type="text" name='name' value={data.name} placeholder="Name" onChange={setval} />
+                  </>
+                  :
+                  ""
+              }
 
-              <span>or use your email for registration</span>
-              <input type="text" name='name' value={data.name} placeholder="Name" onChange={setval} />
+              {
+                reset ? <>
+                  <h3 className='my-4' >Reset Password</h3>
+                </>
+                  : ""
+              }
+
               <input type="email" placeholder="Email" name='email' value={data.email} onChange={setval} />
-              <input type="password" placeholder="Password" name='password' value={data.password} onChange={setval} />
-              <button onClick={handlesubmit} >Sign Up</button>
+              {
+                reset ? <>
+                  <button className='my-4' onClick={handlesubmit} >Send OTP</button>
+                </>
+                  : ""
+              }
+
+
+              {
+                !reset ? <>
+                  <input type="password" placeholder="Password" name='password' value={data.password} onChange={setval} />
+                  <button onClick={handlesubmit} >Sign Up</button>
+
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", alignItems: "center" }} >
+                    <span style={{ fontSize: "1rem" }} >Reset Your Password </span>
+                    <a onClick={() => { setReset(true) }} style={{ color: 'blue', cursor: "pointer" }}  >click here</a>
+                  </div>
+                </>
+                  :
+                  ""
+              }
+
             </form>
           </div>
 
           <div class="form-container sign-in-container">
             <form>
-              <h1>Sign in</h1>
+              <h1>Login</h1>
               <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
@@ -163,12 +184,12 @@ const Signup = () => {
               <span>or use your account</span>
 
               <div>
-                <input type="email" name='email' value={getdata.email} placeholder="Email" onChange={setGet}/>
-                <input type="password" name='password' value={getdata.password} placeholder="Password" onChange={setGet}/>
+                <input type="email" name='email' value={getdata.email} placeholder="Email" onChange={setGet} />
+                <input type="password" name='password' value={getdata.password} placeholder="Password" onChange={setGet} />
               </div>
 
               <a href="#">Forgot your password?</a>
-              <button onClick={handlelogin} >Sign In</button>
+              <button onClick={handlelogin} >Login</button>
             </form>
           </div>
 
@@ -177,12 +198,12 @@ const Signup = () => {
               <div class="overlay-panel overlay-left">
                 <h1>Welcome Back!</h1>
                 <p>To keep connected with us please login with your personal info</p>
-                <button class="ghost" onClick={signInButton} id="signIn">Sign In</button>
+                <button class="ghost" onClick={signInButton} id="signIn">Login</button>
               </div>
               <div class="overlay-panel  overlay-right">
                 <h1>Hello, Friend!</h1>
                 <p>Enter your personal details and start journey with us</p>
-                <button class="ghost" onClick={signUpButton} id="signUp">Sign Up</button>
+                <button class="ghost" onClick={signUpButton} id="signUp">Sign up</button>
               </div>
             </div>
           </div>
