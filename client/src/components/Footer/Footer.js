@@ -2,7 +2,7 @@ import React from 'react'
 import { BsLinkedin } from 'react-icons/bs'
 import { FiInstagram } from 'react-icons/fi'
 import { GrYoutube } from 'react-icons/gr'
-import { FaTwitter, FaEdit } from 'react-icons/fa';
+import { FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
     return (

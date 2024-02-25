@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import '../components/main.css'
-import Shownotes from './Shownotes';
-import Navbar from './Navbar';
+import './main.css'
+import Shownotes from '../Notes/Shownotes';
+import Navbar from '../Navbar/Navbar';
 
 const Main = () => {
 

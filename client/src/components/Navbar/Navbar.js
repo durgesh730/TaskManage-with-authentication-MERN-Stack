@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import '../components/Navbar.css'
+import './Navbar.css'
 import { FaAngleDoubleRight } from 'react-icons/fa';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { BsFillPersonFill } from 'react-icons/bs';
-import pic from "../image/hero-banner.png"
+import pic from "../../image/hero-banner.png"
 import { Link } from 'react-router-dom';
-
 
 const Navbar = () => {
 
@@ -27,7 +26,6 @@ const Navbar = () => {
         })
         const json = await data.json()
         setUser(json)
-        console.log(json)
     }
 
     useEffect(() => {

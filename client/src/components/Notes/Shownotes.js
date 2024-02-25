@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import '../components/main.css'
+import '../Main/main.css'
 import { FaEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
-import img from '../image/Notes-amico.png'
-import Footer from './Footer'
+import img from '../../image/Notes-amico.png'
+import Footer from '../Footer/Footer'
 
 
 const Shownotes = () => {
@@ -11,7 +11,6 @@ const Shownotes = () => {
     const port = "http://localhost:5000"
 
     const [note, setNote] = useState()
-    // const [edit, setEdit] = useState({title:"", description:""});
     const [input, setInput] = useState({ search: '' });
     const [id, setId] = useState();
 

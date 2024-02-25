@@ -1,7 +1,7 @@
-import Main from './components/Main';
-import './components/main.css'
-import ResetPassword from './components/ResetPassword';
-import Signup from './components/Signup';
+import Main from './components/Main/Main';
+import './components/Main/main.css'
+import ResetPassword from './components/Password/ResetPassword';
+import Signup from './components/Signup/Signup';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 function App() {

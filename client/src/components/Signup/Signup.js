@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './signup.css'
 import { FaAngleDoubleRight } from 'react-icons/fa';
-import { GiHamburgerMenu } from 'react-icons/gi';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
@@ -10,9 +9,11 @@ const Signup = () => {
 
   const [reset, setReset] = useState(false);
   const [isActive, setActive] = useState("false");
+
   const open = () => {
     setActive(!isActive);
   };
+
   const [swapPanel, setSwapPanel] = useState(false);
   const signUpButton = () => {
     setSwapPanel(true);
@@ -75,7 +76,7 @@ const Signup = () => {
         setSwapPanel(false);
         alert('You are Registered successfully')
       } else {
-        alert("Plz Enter correct Details")
+        alert(res.error)
       }
     }
   }
@@ -128,7 +129,7 @@ const Signup = () => {
         localStorage.setItem("login", JSON.stringify(res.result));
         navigate('/mainpage');
       } else {
-        alert("Plz Enter correct Details")
+        alert(res.error)
       }
     }
   }
@@ -142,9 +143,6 @@ const Signup = () => {
             <span><FaAngleDoubleRight />STICKY </span>
           </a>
           <div class="navbar-wrapper">
-            <button class="navbar-menu-btn" onClick={open}>
-              <GiHamburgerMenu />
-            </button>
             <nav className={isActive ? "navbar" : " navbar  active"}>
               <button class="btn">Get in touch</button>
             </nav>

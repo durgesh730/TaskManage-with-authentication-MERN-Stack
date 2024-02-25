@@ -11,7 +11,6 @@ const Mailgen = require("mailgen");
 
 const keysecret = "durgeshchaudharydurgeshchaudhary"
 
-
 // email config
 const transporter = nodemailer.createTransport({
     service: 'gmail',
